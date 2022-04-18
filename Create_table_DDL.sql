@@ -118,7 +118,7 @@ IF(record_count > 0) THEN
 ELSE
     execute immediate 'CREATE table EMPLOYEE_INFO (
   employee_ID NUMBER GENERATED ALWAYS as IDENTITY(START with 801 INCREMENT by 1),
-  hotel_ID NUMBER,
+  hotel_ID NUMBER not null,
   employee_fname VARCHAR(25) not null,
   employee_lname VARCHAR(25) not null,
   employee_DOB DATE not null,
@@ -133,7 +133,9 @@ ELSE
   employee_salary NUMBER not null,
   employee_ID_type VARCHAR(50) not null,
   employee_ID_number NUMBER not null,
-  CONSTRAINT EMPLOYEE_INFO_PK PRIMARY KEY(employee_ID))';
+  CONSTRAINT EMPLOYEE_INFO_PK PRIMARY KEY(employee_ID),
+  CONSTRAINT EMPLOYEE_INFO_FK FOREIGN KEY(hotel_ID) REFERENCES HOTEL(hotel_ID),
+  CONSTRAINT EMPLOYEE_UNIQUE UNIQUE (employee_email,employee_phone))';
   DBMS_OUTPUT.PUT_LINE('TABLE EMPLOYEE_INFO CREATED SUCCESSFULLY');
   DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------------------------------------------------------------------');      
 end if;
